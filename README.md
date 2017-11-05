@@ -1,4 +1,4 @@
-# mosquitto cluster
+# mosquitto ha
 
 mosquitto 容器集群化部署，基于官方镜像 `eclipse-mosquitto` 
 

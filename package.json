@@ -1,5 +1,5 @@
 {
-  "name": "mosquitto-cluster",
+  "name": "mosquitto-ha",
   "version": "0.1.0",
   "description": "基于 docker 集群化部署的 mosquitto",
   "main": "''",
