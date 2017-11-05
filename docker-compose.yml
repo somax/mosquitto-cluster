@@ -1,30 +1,37 @@
 version: '2'
 services:
   mosquitto1:
-    image: somax/mosquitto-broker:1.4.12
+    image: somax/mosquitto-ha:1.4.12
     hostname: mosquitto1
     environment:
-      MOSQUITTO_BRIDGE_NODES: bridge:1883 hot-standby-bridge:1883
+      MOSQUITTO_AS: ha_broker
+      MOSQUITTO_BRIDGE_NODES: bridge-master:1883 bridge-slave:1883
       MOSQUITTO_OTHER_BROKERS: mosquitto2,mosquitto3
   
   mosquitto2:
-    image: somax/mosquitto-broker:1.4.12
+    image: somax/mosquitto-ha:1.4.12
     hostname: mosquitto2
     environment:
-      MOSQUITTO_BRIDGE_NODES: bridge:1883 hot-standby-bridge:1883
+      MOSQUITTO_AS: ha_broker
+      MOSQUITTO_BRIDGE_NODES: bridge-master:1883 bridge-slave:1883
       MOSQUITTO_OTHER_BROKERS: mosquitto1,mosquitto3
 
   mosquitto3:
-    image: somax/mosquitto-broker:1.4.12
+    image: somax/mosquitto-ha:1.4.12
     hostname: mosquitto3
     environment:
-      MOSQUITTO_BRIDGE_NODES: bridge:1883 hot-standby-bridge:1883
+      MOSQUITTO_AS: ha_broker
+      MOSQUITTO_BRIDGE_NODES: bridge-master:1883 bridge-slave:1883
       MOSQUITTO_OTHER_BROKERS: mosquitto1,mosquitto2
 
-  bridge:
-    image: somax/mosquitto-bridge:1.4.12
-    hostname: bridge
+  bridge-master:
+    image: somax/mosquitto-ha:1.4.12
+    hostname: bridge-master
 
-  hot-standby-bridge:
-    image: somax/mosquitto-bridge:1.4.12
-    hostname: hot-standby-bridge
+  bridge-slave:
+    image: somax/mosquitto-ha:1.4.12
+    hostname: bridge-slave
+
+ # for test
+  client:
+    image: ncarlier/mqtt
