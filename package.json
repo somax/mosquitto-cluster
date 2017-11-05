@@ -1,0 +1,11 @@
+{
+  "name": "mosquitto-cluster",
+  "version": "0.1.0",
+  "description": "基于 docker 集群化部署的 mosquitto",
+  "main": "''",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "MaXiaojun <somaxj@163.com>",
+  "license": "ISC"
+}

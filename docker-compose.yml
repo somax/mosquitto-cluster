@@ -1,0 +1,34 @@
+version: '2'
+services:
+  mosquitto1:
+    image: laputa/mosquitto-broker:1.4.12
+    hostname: mosquitto1
+    environment:
+      MOSQUITTO_BRIDGE_NODES: bridge:1883 hot-standby-bridge:1883
+      MOSQUITTO_OTHER_BROKERS: mosquitto2,mosquitto3
+  
+  mosquitto2:
+    image: laputa/mosquitto-broker:1.4.12
+    hostname: mosquitto2
+    environment:
+      MOSQUITTO_BRIDGE_NODES: bridge:1883 hot-standby-bridge:1883
+      MOSQUITTO_OTHER_BROKERS: mosquitto1,mosquitto3
+
+  mosquitto3:
+    image: laputa/mosquitto-broker:1.4.12
+    hostname: mosquitto3
+    environment:
+      MOSQUITTO_BRIDGE_NODES: bridge:1883 hot-standby-bridge:1883
+      MOSQUITTO_OTHER_BROKERS: mosquitto1,mosquitto2
+
+  bridge:
+    image: laputa/mosquitto-bridge:1.4.12
+    hostname: bridge
+
+  hot-standby-bridge:
+    image: laputa/mosquitto-bridge:1.4.12
+    hostname: hot-standby-bridge
+
+  # for test
+  client:
+    image: ncarlier/mqtt
