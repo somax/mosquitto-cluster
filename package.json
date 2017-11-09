@@ -1,10 +1,13 @@
 {
   "name": "mosquitto-ha",
-  "version": "0.1.0",
+  "version": "1.4.12-2",
   "description": "基于 docker 集群化部署的 mosquitto",
-  "main": "''",
+  "main": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "docker.build": "docker build -t somax/mosquitto-ha:$npm_package_version ./mosquitto-ha && npm run docker.tag.latest",
+    "docker.publish": "docker push somax/mosquitto-ha:$npm_package_version && npm run docker.publish.latest",
+    "docker.tag.latest": "docker tag somax/mosquitto-ha:$npm_package_version somax/mosquitto-ha:latest",
+    "docker.publish.latest":"docker push somax/mosquitto-ha:latest"
   },
   "author": "MaXiaojun <somaxj@163.com>",
   "license": "ISC"

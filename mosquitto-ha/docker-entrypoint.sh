@@ -19,7 +19,7 @@ log_timestamp true
 listener 1883
 EOF
 
-if [ "$MOSQUITTO_AS" == "ha_broker" ]; 
+if [ "$MOSQUITTO_BRIDGE_NODES" != "" ]; 
 then
 
 cat << EOF >> $CONFIG_FILE
