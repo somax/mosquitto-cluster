@@ -2,6 +2,7 @@
 
 # generate config file
 CONFIG_FILE=/mosquitto/config/mosquitto.conf
+IFS=","
 
 cat << EOF > $CONFIG_FILE
 # General Mosquitto Config
@@ -12,15 +13,25 @@ autosave_on_changes false
 persistence true
 persistence_file mosquitto.db
 persistence_location /mosquitto/data/
-log_dest stderr
-log_type all
 connection_messages true
 log_timestamp true
 listener 1883
 EOF
 
-if [ "$MOSQUITTO_BRIDGE_NODES" != "" ]; 
-then
+
+for logType in $MOSQUITTO_LOG_TYPE; do
+	echo "log_type $logType" >> $CONFIG_FILE
+done
+
+if [ "$MOSQUITTO_LOG_DEST" != "" ]; then
+
+for logDest in $MOSQUITTO_LOG_DEST; do
+	echo "log_dest $logDest" >> $CONFIG_FILE
+done
+
+fi
+
+if [ "$MOSQUITTO_BRIDGE_NODES" != "" ]; then
 
 cat << EOF >> $CONFIG_FILE
 
@@ -35,7 +46,6 @@ cleansession false
 topic # out 2 "" $HOSTNAME/
 EOF
 
-IFS=","
 for broker in $MOSQUITTO_OTHER_BROKERS; do
 	echo "topic # in 2" '""' "$broker/" >> $CONFIG_FILE
 done
