@@ -4,34 +4,43 @@ services:
     image: somax/mosquitto-ha:1.4.12-3
     hostname: mosquitto1
     environment:
-      MOSQUITTO_AS: ha_broker
       MOSQUITTO_BRIDGE_NODES: bridge-master:1883 bridge-slave:1883
       MOSQUITTO_OTHER_BROKERS: mosquitto2,mosquitto3
+      MOSQUITTO_LOG_DEST: stdout
+      MOSQUITTO_LOG_TYPE: error,warning
   
   mosquitto2:
     image: somax/mosquitto-ha:1.4.12-3
     hostname: mosquitto2
     environment:
-      MOSQUITTO_AS: ha_broker
       MOSQUITTO_BRIDGE_NODES: bridge-master:1883 bridge-slave:1883
       MOSQUITTO_OTHER_BROKERS: mosquitto1,mosquitto3
+      MOSQUITTO_LOG_DEST: stdout
+      MOSQUITTO_LOG_TYPE: error,warning
 
   mosquitto3:
     image: somax/mosquitto-ha:1.4.12-3
     hostname: mosquitto3
     environment:
-      MOSQUITTO_AS: ha_broker
       MOSQUITTO_BRIDGE_NODES: bridge-master:1883 bridge-slave:1883
       MOSQUITTO_OTHER_BROKERS: mosquitto1,mosquitto2
+      MOSQUITTO_LOG_DEST: stdout
+      MOSQUITTO_LOG_TYPE: error,warning
 
   bridge-master:
     image: somax/mosquitto-ha:1.4.12-3
     hostname: bridge-master
+    environment:
+      MOSQUITTO_LOG_DEST: stdout
+      MOSQUITTO_LOG_TYPE: error,warning
 
   bridge-slave:
     image: somax/mosquitto-ha:1.4.12-3
     hostname: bridge-slave
-
+    environment:
+      MOSQUITTO_LOG_DEST: stdout
+      MOSQUITTO_LOG_TYPE: error,warning
+      
  # for test
   client:
     image: ncarlier/mqtt
