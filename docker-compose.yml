@@ -1,7 +1,7 @@
 version: '2'
 services:
   mosquitto1:
-    image: somax/mosquitto-ha:1.4.12
+    image: somax/mosquitto-ha:1.4.12-3
     hostname: mosquitto1
     environment:
       MOSQUITTO_AS: ha_broker
@@ -9,7 +9,7 @@ services:
       MOSQUITTO_OTHER_BROKERS: mosquitto2,mosquitto3
   
   mosquitto2:
-    image: somax/mosquitto-ha:1.4.12
+    image: somax/mosquitto-ha:1.4.12-3
     hostname: mosquitto2
     environment:
       MOSQUITTO_AS: ha_broker
@@ -17,7 +17,7 @@ services:
       MOSQUITTO_OTHER_BROKERS: mosquitto1,mosquitto3
 
   mosquitto3:
-    image: somax/mosquitto-ha:1.4.12
+    image: somax/mosquitto-ha:1.4.12-3
     hostname: mosquitto3
     environment:
       MOSQUITTO_AS: ha_broker
@@ -25,11 +25,11 @@ services:
       MOSQUITTO_OTHER_BROKERS: mosquitto1,mosquitto2
 
   bridge-master:
-    image: somax/mosquitto-ha:1.4.12
+    image: somax/mosquitto-ha:1.4.12-3
     hostname: bridge-master
 
   bridge-slave:
-    image: somax/mosquitto-ha:1.4.12
+    image: somax/mosquitto-ha:1.4.12-3
     hostname: bridge-slave
 
  # for test
